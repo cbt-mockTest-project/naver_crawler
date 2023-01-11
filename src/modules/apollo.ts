@@ -10,7 +10,7 @@ import { getCookie } from "cookies-next";
 const jwtToken = getCookie("jwt-token");
 export const authTokenVar = makeVar(jwtToken);
 const httpLink = createHttpLink({
-  uri: "http://localhost:80/graphql",
+  uri: process.env.NEXT_PUBLIC_API_URL,
 });
 
 const authLink = setContext((request, previousContext) => ({
