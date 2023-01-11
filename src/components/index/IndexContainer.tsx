@@ -1,44 +1,71 @@
 import { message } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Control,
+  FormState,
+  useForm,
+  UseFormHandleSubmit,
+} from "react-hook-form";
 import { useNaverViewCrawler } from "../../lib/graphql/hooks/naverCrawlerHooks";
-import { NaverViewTapCrawlerTestQuery } from "../../lib/graphql/queries/naverCrawler.generated";
-import useInput from "../../lib/hooks/useInput";
 import { convertWithErrorHandlingFunc } from "../../lib/utils";
+import { LocalStorage } from "../../lib/utils/localStorage";
+import { myBlog } from "./index.constants";
 import IndexView from "./IndexView";
 
-export interface SearchedCountType {
-  all: number | undefined;
-  blog: number | undefined;
-}
-
-export interface IndexViewProps {
-  blogName: string;
+export interface NaverViewCrawlerForm {
   keyword: string;
+  blogName: string;
+}
+export interface IndexViewProps {
+  control: Control<NaverViewCrawlerForm, any>;
+  handleSubmit: UseFormHandleSubmit<NaverViewCrawlerForm>;
+  formState: FormState<NaverViewCrawlerForm>;
+  trySearch: (
+    data: NaverViewCrawlerForm
+  ) => () => Promise<Promise<void> | undefined>;
   searchLoading: boolean;
-  searchResult: NaverViewTapCrawlerTestQuery | undefined;
-  trySearch: () => Promise<Promise<void> | undefined>;
-  onChangeBlogName: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  onChangeKeyword: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  searchedCount: SearchedCountType;
+  blogRankText: string;
+  allRankText: string;
+  afterFirstSearch: boolean;
 }
 
 const IndexContainer = () => {
+  const myStorage = new LocalStorage();
   const [
     requestNaverBlogRankCrawling,
     { loading: searchLoading, data: searchResult },
   ] = useNaverViewCrawler();
-  const { value: blogName, onChange: onChangeBlogName } = useInput("");
-  const { value: keyword, onChange: onChangeKeyword } = useInput("");
-  const requestSearch = async () => {
+  const { control, handleSubmit, formState, setValue, watch } =
+    useForm<NaverViewCrawlerForm>({
+      defaultValues: {
+        keyword: "",
+        blogName: "",
+      },
+    });
+  useEffect(() => {
+    const savedMyBlogName = myStorage.get(myBlog);
+    console.log(savedMyBlogName);
+    if (savedMyBlogName) {
+      console.log("들어옴");
+      setValue("blogName", savedMyBlogName);
+    }
+  }, []);
+
+  useEffect(() => {
+    watch((value, { name, type }) => {
+      myStorage.set(myBlog, value.blogName);
+    });
+  }, [watch]);
+  const [afterFirstSearch, setAfterFirstSearch] = useState(false);
+  const requestSearch = async (data: NaverViewCrawlerForm) => {
     const res = await requestNaverBlogRankCrawling({
-      variables: { input: { blogName, keyword } },
+      variables: { input: data },
     });
     if (!res.data?.naverViewTapCrawlerTest.ok) {
       message.error("알수없는 에러");
+    }
+    if (!afterFirstSearch) {
+      setAfterFirstSearch(true);
     }
   };
   const searchedCount = {
@@ -49,16 +76,27 @@ const IndexContainer = () => {
       ? searchResult?.naverViewTapCrawlerTest.searchCount?.blog
       : 0,
   };
-  const trySearch = convertWithErrorHandlingFunc({ callback: requestSearch });
+  const trySearch = (data: NaverViewCrawlerForm) =>
+    convertWithErrorHandlingFunc({ callback: () => requestSearch(data) });
+  const blogRankText = searchLoading
+    ? "검색중입니다..."
+    : searchedCount.blog
+    ? searchedCount.blog + "순위"
+    : "존재하지 않습니다.";
+  const allRankText = searchLoading
+    ? "검색중입니다..."
+    : searchedCount.all
+    ? searchedCount.all + "순위"
+    : "존재하지 않습니다.";
   const indexProps: IndexViewProps = {
     trySearch,
-    blogName,
-    keyword,
-    onChangeBlogName,
-    onChangeKeyword,
     searchLoading,
-    searchResult,
-    searchedCount,
+    blogRankText,
+    allRankText,
+    afterFirstSearch,
+    handleSubmit,
+    control,
+    formState,
   };
   return <IndexView {...indexProps} />;
 };
