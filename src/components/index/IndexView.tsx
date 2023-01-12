@@ -19,7 +19,7 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
 
   return (
     <form
-      className="flex flex-col mt-11 items-center h-screen gap-3 p-6 max-w-md mx-auto"
+      className="flex flex-col mt-11 items-center h-screen gap-3 p-6 mx-auto w-full max-w-lg  "
       onSubmit={handleSubmit((data) => trySearch(data)())}
     >
       <div className="flex flex-col w-full">
