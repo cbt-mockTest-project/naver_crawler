@@ -10,6 +10,11 @@ export const NAVER_VIEW_CRAWLER = gql`
         all
         blog
       }
+      postInfo {
+        title
+        content
+        link
+      }
     }
   }
 `;

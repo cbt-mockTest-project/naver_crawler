@@ -675,6 +675,7 @@ export type NaverViewTapCrawlerOutput = {
   error?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  postInfo?: Maybe<PostInfo>;
   searchCount?: Maybe<SearchCount>;
 };
 
@@ -687,6 +688,13 @@ export type Notice = {
   reservationTime?: Maybe<Scalars['DateTime']>;
   updated_at: Scalars['DateTime'];
   user: User;
+};
+
+export type PostInfo = {
+  __typename?: 'PostInfo';
+  content: Scalars['String'];
+  link: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type Query = {

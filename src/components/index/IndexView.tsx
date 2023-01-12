@@ -14,11 +14,12 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
     allRankText,
     afterFirstSearch,
     formState,
+    searchedPostInfo,
   } = props;
 
   return (
     <form
-      className="flex flex-col mt-11 items-center h-screen gap-3 p-6"
+      className="flex flex-col mt-11 items-center h-screen gap-3 p-6 max-w-md mx-auto"
       onSubmit={handleSubmit((data) => trySearch(data)())}
     >
       <div className="flex flex-col w-full">
@@ -64,8 +65,23 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
       </Button>
       {afterFirstSearch && (
         <>
-          <p className="mt-4 text-lg text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>
-          <p className="text-lg text-start w-full">{`블로그탭 검색결과 : ${blogRankText}`}</p>
+          <p className="mt-4 mb-0 text-sm text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>
+          <p className="text-sm text-start w-full">{`블로그탭 검색결과 : ${blogRankText}`}</p>
+          {searchedPostInfo?.title && (
+            <div className="flex flex-col justify-start w-full gap-2">
+              <a
+                className="bg-slate-200 p-4 rounded"
+                href={searchedPostInfo?.link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {searchedPostInfo?.title}
+              </a>
+              <pre className="whitespace-normal p-2">
+                {searchedPostInfo?.content}
+              </pre>
+            </div>
+          )}
         </>
       )}
     </form>

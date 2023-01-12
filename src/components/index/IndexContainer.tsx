@@ -7,8 +7,10 @@ import {
   UseFormHandleSubmit,
 } from "react-hook-form";
 import { useNaverViewCrawler } from "../../lib/graphql/hooks/naverCrawlerHooks";
+import { NaverViewTapCrawlerTestQuery } from "../../lib/graphql/queries/naverCrawler.generated";
 import { convertWithErrorHandlingFunc } from "../../lib/utils";
 import { LocalStorage } from "../../lib/utils/localStorage";
+import { PostInfo } from "../../types";
 import { myBlog } from "./index.constants";
 import IndexView from "./IndexView";
 
@@ -27,6 +29,7 @@ export interface IndexViewProps {
   blogRankText: string;
   allRankText: string;
   afterFirstSearch: boolean;
+  searchedPostInfo: NaverViewTapCrawlerTestQuery["naverViewTapCrawlerTest"]["postInfo"];
 }
 
 const IndexContainer = () => {
@@ -76,6 +79,9 @@ const IndexContainer = () => {
       ? searchResult?.naverViewTapCrawlerTest.searchCount?.blog
       : 0,
   };
+  const searchedPostInfo = searchResult
+    ? searchResult.naverViewTapCrawlerTest.postInfo
+    : null;
   const trySearch = (data: NaverViewCrawlerForm) =>
     convertWithErrorHandlingFunc({ callback: () => requestSearch(data) });
   const blogRankText = searchLoading
@@ -94,6 +100,7 @@ const IndexContainer = () => {
     blogRankText,
     allRankText,
     afterFirstSearch,
+    searchedPostInfo,
     handleSubmit,
     control,
     formState,
