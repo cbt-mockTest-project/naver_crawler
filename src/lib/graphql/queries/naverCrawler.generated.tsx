@@ -8,7 +8,7 @@ export type NaverViewTapCrawlerTestQueryVariables = Types.Exact<{
 }>;
 
 
-export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCount?: { __typename?: 'SearchCount', all: number, blog: number } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string } | null } };
+export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCount?: { __typename?: 'SearchCount', all: number, blog: number } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string, thumb: string } | null } };
 
 
 export const NaverViewTapCrawlerTestDocument = gql`
@@ -25,6 +25,7 @@ export const NaverViewTapCrawlerTestDocument = gql`
       title
       content
       link
+      thumb
     }
   }
 }

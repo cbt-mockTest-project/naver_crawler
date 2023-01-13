@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { Button, Input } from "antd";
+import Image from "next/image";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { convertWithErrorHandlingFunc } from "../../lib/utils";
@@ -72,17 +74,24 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
           <p className="text-sm text-start w-full">{`블로그탭 검색결과 : ${blogRankText}`}</p>
           {searchedPostInfo?.title && (
             <div className="flex flex-col justify-start w-full gap-2">
+              {searchedPostInfo.thumb && (
+                <div className="rounded overflow-hidden">
+                  <img
+                    className="w-full h-full object-fill"
+                    src={searchedPostInfo.thumb}
+                    alt="thumb-nail"
+                  />
+                </div>
+              )}
               <a
-                className="bg-slate-200 p-4 rounded"
+                className="rounded text-base font-semibold text-zinc-900 "
                 href={searchedPostInfo?.link}
                 target="_blank"
                 rel="noreferrer"
               >
                 {searchedPostInfo?.title}
               </a>
-              <pre className="whitespace-normal p-2">
-                {searchedPostInfo?.content}
-              </pre>
+              <p className=" line-clamp-2">{searchedPostInfo?.content}</p>
             </div>
           )}
         </>

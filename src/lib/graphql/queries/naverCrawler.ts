@@ -14,6 +14,7 @@ export const NAVER_VIEW_CRAWLER = gql`
         title
         content
         link
+        thumb
       }
     }
   }

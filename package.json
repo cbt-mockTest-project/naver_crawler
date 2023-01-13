@@ -29,6 +29,7 @@
     "@graphql-codegen/client-preset": "^1.0.5",
     "@graphql-codegen/near-operation-file-preset": "^2.4.1",
     "@graphql-codegen/typescript-urql": "^3.7.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/lodash": "^4.14.186",
     "@types/node": "18.11.2",
     "@types/react": "18.0.21",

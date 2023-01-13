@@ -694,6 +694,7 @@ export type PostInfo = {
   __typename?: 'PostInfo';
   content: Scalars['String'];
   link: Scalars['String'];
+  thumb: Scalars['String'];
   title: Scalars['String'];
 };
 
