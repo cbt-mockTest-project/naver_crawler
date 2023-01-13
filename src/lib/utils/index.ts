@@ -1,5 +1,6 @@
 import { message } from "antd";
 
+export const isServer = () => typeof window === "undefined";
 interface ConvertWithErrorHandlingFuncParams<
   T extends (...args: any[]) => ReturnType<T>
 > {
