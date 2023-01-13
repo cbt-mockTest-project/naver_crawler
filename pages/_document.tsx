@@ -4,6 +4,10 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <meta
+          name="naver-site-verification"
+          content="3275290b5098f1e149118277198553886638dd6e"
+        />
         <link
           href="/icons/favicon-16x16.png"
           rel="icon"
