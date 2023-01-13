@@ -24,9 +24,9 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
       className="flex flex-col mt-11 items-center h-screen gap-3 p-6 mx-auto w-full max-w-lg  "
       onSubmit={handleSubmit((data) => trySearch(data)())}
     >
-      <h1 className="text-lg text-left w-full font-bold">
+      <p className="text-lg text-left w-full font-bold">
         네이버 블로그 노출순위 봇
-      </h1>
+      </p>
       <div className="flex flex-col w-full">
         <label htmlFor="blogName">블로그이름</label>
         <Controller
