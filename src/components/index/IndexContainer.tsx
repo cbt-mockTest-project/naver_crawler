@@ -46,9 +46,7 @@ const IndexContainer = () => {
     });
   useEffect(() => {
     const savedMyBlogName = myStorage.get(myBlog);
-    console.log(savedMyBlogName);
     if (savedMyBlogName) {
-      console.log("들어옴");
       setValue("blogName", savedMyBlogName);
     }
   }, []);
@@ -63,7 +61,6 @@ const IndexContainer = () => {
     const res = await requestNaverBlogRankCrawling({
       variables: { input: data },
     });
-    console.log(res.data?.naverViewTapCrawlerTest);
     if (!res.data?.naverViewTapCrawlerTest.ok) {
       message.error("일시적인 에러");
     }
