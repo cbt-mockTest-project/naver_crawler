@@ -1,3 +1,4 @@
+import { event } from "@lib/ga/gtag";
 import { message } from "antd";
 import React, { useEffect, useState } from "react";
 import {
@@ -58,6 +59,12 @@ const IndexContainer = () => {
   }, [watch]);
   const [afterFirstSearch, setAfterFirstSearch] = useState(false);
   const requestSearch = async (data: NaverViewCrawlerForm) => {
+    event({
+      action: "submit",
+      category: "rank_search",
+      label: "rank_search",
+      value: 1,
+    });
     const res = await requestNaverBlogRankCrawling({
       variables: { input: data },
     });
