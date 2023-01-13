@@ -10,7 +10,6 @@ import { useNaverViewCrawler } from "../../lib/graphql/hooks/naverCrawlerHooks";
 import { NaverViewTapCrawlerTestQuery } from "../../lib/graphql/queries/naverCrawler.generated";
 import { convertWithErrorHandlingFunc } from "../../lib/utils";
 import { LocalStorage } from "../../lib/utils/localStorage";
-import { PostInfo } from "../../types";
 import { myBlog } from "./index.constants";
 import IndexView from "./IndexView";
 
@@ -64,8 +63,9 @@ const IndexContainer = () => {
     const res = await requestNaverBlogRankCrawling({
       variables: { input: data },
     });
+    console.log(res.data?.naverViewTapCrawlerTest);
     if (!res.data?.naverViewTapCrawlerTest.ok) {
-      message.error("알수없는 에러");
+      message.error("일시적인 에러");
     }
     if (!afterFirstSearch) {
       setAfterFirstSearch(true);

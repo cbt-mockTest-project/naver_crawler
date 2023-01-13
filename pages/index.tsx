@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>네이버 블로그 키워드순위 크롤링 봇</title>
+        <title>네이버 블로그 노출순위 봇</title>
       </Head>
       <LayoutContainer>
         <IndexContainer />
