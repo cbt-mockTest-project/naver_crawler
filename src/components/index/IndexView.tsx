@@ -52,7 +52,10 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
           <p className="text-red-500 text-xs">한 글자 이상 입력해주세요</p>
         )}
       </div>
-      <OuterClick className="flex flex-col w-full" callback={closeHistoryBox}>
+      <OuterClick
+        className="flex flex-col w-full relative"
+        callback={closeHistoryBox}
+      >
         <div className="flex flex-col w-full">
           <label htmlFor="keyword">검색어</label>
           <div className="flex">
@@ -86,7 +89,7 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
         </div>
         {historyboxState &&
           formState.errors["keyword"]?.type !== "required" && (
-            <ul className="flex flex-col w-full p-2  border border-gray-300 min-h-[50%]">
+            <ul className="flex flex-col w-full p-2  border border-gray-300 min-h-[50%] absolute top-14 bg-white">
               <li className="flex justify-between mb-2">
                 <span className="text-xs text-gray-400">최근 검색기록</span>
                 <button
