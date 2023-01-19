@@ -11,7 +11,7 @@ import { useNaverViewCrawler } from "../../lib/graphql/hooks/naverCrawlerHooks";
 import { NaverViewTapCrawlerTestQuery } from "../../lib/graphql/queries/naverCrawler.generated";
 import { convertWithErrorHandlingFunc } from "../../lib/utils";
 import { LocalStorage } from "../../lib/utils/localStorage";
-import { myBlog } from "./index.constants";
+import { myBlog, searchHistory } from "./index.constants";
 import IndexView from "./IndexView";
 
 export interface NaverViewCrawlerForm {
@@ -30,14 +30,30 @@ export interface IndexViewProps {
   allRankText: string;
   afterFirstSearch: boolean;
   searchedPostInfo: NaverViewTapCrawlerTestQuery["naverViewTapCrawlerTest"]["postInfo"];
+  searchHistoryValues: string[];
+  historyboxState: boolean;
+  onHistoryValueClick: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  openHistoryBox: () => void;
+  closeHistoryBox: () => void;
+  removeSearchHistory: () => void;
 }
 
 const IndexContainer = () => {
   const myStorage = new LocalStorage();
+  const [searchHistoryValues, setSearchHistoryValues] = useState<string[]>([]);
   const [
     requestNaverBlogRankCrawling,
     { loading: searchLoading, data: searchResult },
   ] = useNaverViewCrawler();
+  const [historyboxState, setHistoryBoxState] = useState(false);
+  const openHistoryBox = () => {
+    if (!historyboxState) setHistoryBoxState(true);
+  };
+  const closeHistoryBox = () => {
+    if (historyboxState) setHistoryBoxState(false);
+  };
   const { control, handleSubmit, formState, setValue, watch } =
     useForm<NaverViewCrawlerForm>({
       defaultValues: {
@@ -47,6 +63,8 @@ const IndexContainer = () => {
     });
   useEffect(() => {
     const savedMyBlogName = myStorage.get(myBlog);
+    const savedHistoryValues = myStorage.get(searchHistory);
+    setSearchHistoryValues(savedHistoryValues);
     if (savedMyBlogName) {
       setValue("blogName", savedMyBlogName);
     }
@@ -58,6 +76,17 @@ const IndexContainer = () => {
     });
   }, [watch]);
   const [afterFirstSearch, setAfterFirstSearch] = useState(false);
+  const onHistoryValueClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (e.currentTarget.textContent) {
+      setValue("keyword", e.currentTarget.textContent);
+    }
+  };
+  const removeSearchHistory = () => {
+    myStorage.remove(searchHistory);
+    setSearchHistoryValues([]);
+  };
   const requestSearch = async (data: NaverViewCrawlerForm) => {
     event({
       action: "submit",
@@ -68,6 +97,19 @@ const IndexContainer = () => {
     const res = await requestNaverBlogRankCrawling({
       variables: { input: data },
     });
+    if (res.data?.naverViewTapCrawlerTest.ok) {
+      const prevSearchHistoryValues = myStorage.get(searchHistory) as string[];
+
+      if (!prevSearchHistoryValues.includes(data.keyword)) {
+        if (prevSearchHistoryValues.length > 2) prevSearchHistoryValues.pop();
+        let newSearchHistoryValues = prevSearchHistoryValues
+          ? [data.keyword, ...prevSearchHistoryValues]
+          : [data.keyword];
+        myStorage.set(searchHistory, newSearchHistoryValues);
+        setSearchHistoryValues(newSearchHistoryValues);
+      }
+      setHistoryBoxState(false);
+    }
     if (!res.data?.naverViewTapCrawlerTest.ok) {
       message.error("일시적인 에러");
     }
@@ -108,6 +150,12 @@ const IndexContainer = () => {
     handleSubmit,
     control,
     formState,
+    historyboxState,
+    openHistoryBox,
+    searchHistoryValues,
+    closeHistoryBox,
+    onHistoryValueClick,
+    removeSearchHistory,
   };
   return <IndexView {...indexProps} />;
 };

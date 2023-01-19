@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
+import OuterClick from "@components/common/outerClick/OuterClick";
 import { Button, Input } from "antd";
-import Image from "next/image";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
-import { convertWithErrorHandlingFunc } from "../../lib/utils";
+import { Controller } from "react-hook-form";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { IndexViewProps } from "./IndexContainer";
 
 const IndexView: React.FC<IndexViewProps> = (props) => {
@@ -17,14 +17,20 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
     afterFirstSearch,
     formState,
     searchedPostInfo,
+    historyboxState,
+    openHistoryBox,
+    searchHistoryValues,
+    closeHistoryBox,
+    onHistoryValueClick,
+    removeSearchHistory,
   } = props;
 
   return (
     <form
-      className="flex flex-col mt-11 items-center h-screen gap-3 p-6 mx-auto w-full max-w-lg  "
+      className="flex flex-col mt-0 items-center h-screen gap-3 p-6 mx-auto w-full max-w-lg  "
       onSubmit={handleSubmit((data) => trySearch(data)())}
     >
-      <p className="text-lg text-left w-full font-bold">
+      <p className="text-lg text-left w-full font-bold mb-0">
         네이버 블로그 노출순위 봇
       </p>
       <div className="flex flex-col w-full">
@@ -38,36 +44,83 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
               onChange={field.onChange}
               value={field.value}
               id="blogName"
+              autoComplete="off"
             />
           )}
         />
         {formState.errors["blogName"]?.type === "required" && (
-          <p className="text-red-500">한 글자 이상 입력해주세요</p>
+          <p className="text-red-500 text-xs">한 글자 이상 입력해주세요</p>
         )}
       </div>
-      <div className="flex flex-col w-full">
-        <label htmlFor="keyword">검색어</label>
-        <Controller
-          control={control}
-          name="keyword"
-          rules={{ required: true }}
-          render={({ field }) => (
-            <Input onChange={field.onChange} value={field.value} id="keyword" />
+      <OuterClick className="flex flex-col w-full" callback={closeHistoryBox}>
+        <div className="flex flex-col w-full">
+          <label htmlFor="keyword">검색어</label>
+          <div className="flex">
+            <Controller
+              control={control}
+              name="keyword"
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Input
+                  className="w-9/12"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    openHistoryBox();
+                  }}
+                  onFocus={openHistoryBox}
+                  value={field.value}
+                  id="keyword"
+                  autoComplete="off"
+                />
+              )}
+            />
+            <Button
+              className="w-3/12 "
+              type="primary"
+              htmlType="submit"
+              loading={searchLoading}
+            >
+              검색
+            </Button>
+          </div>
+        </div>
+        {historyboxState &&
+          formState.errors["keyword"]?.type !== "required" && (
+            <ul className="flex flex-col w-full p-2  border border-gray-300 min-h-[50%]">
+              <li className="flex justify-between mb-2">
+                <span className="text-xs text-gray-400">최근 검색기록</span>
+                <button
+                  type="button"
+                  className="text-xs text-gray-400 hover:text-blue-400"
+                  onClick={removeSearchHistory}
+                >
+                  기록삭제
+                </button>
+              </li>
+              {searchHistoryValues.length >= 1 &&
+                searchHistoryValues.map((value, index) => (
+                  <li
+                    key={index}
+                    className="px-1 py-1 cursor-pointer hover:bg-slate-100"
+                  >
+                    <button
+                      type="button"
+                      className="w-full text-left text-sm flex gap-2 items-center"
+                      onClick={onHistoryValueClick}
+                    >
+                      <AccessTimeIcon className="text-sm" />
+                      <span>{value}</span>
+                    </button>
+                  </li>
+                ))}
+            </ul>
           )}
-        />
-        {formState.errors["keyword"]?.type === "required" && (
-          <p className="text-red-500">한 글자 이상 입력해주세요</p>
-        )}
-      </div>
-      <Button
-        className="w-full"
-        type="primary"
-        htmlType="submit"
-        loading={searchLoading}
-        // onClick={trySearch}
-      >
-        검색하기
-      </Button>
+      </OuterClick>
+      {formState.errors["keyword"]?.type === "required" && (
+        <p className="text-red-500 text-xs text-left w-full relative bottom-3">
+          한 글자 이상 입력해주세요
+        </p>
+      )}
       {afterFirstSearch && (
         <>
           <p className="mt-4 mb-0 text-sm text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>

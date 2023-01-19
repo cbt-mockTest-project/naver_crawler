@@ -8,6 +8,9 @@ module.exports = {
         "13/7": "13 / 7",
         "4/2": "4 / 2",
       },
+      minHeight: {
+        "1/2": "50%",
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],
