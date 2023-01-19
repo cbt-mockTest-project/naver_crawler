@@ -48,9 +48,11 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
             />
           )}
         />
-        {formState.errors["blogName"]?.type === "required" && (
-          <p className="text-red-500 text-xs">한 글자 이상 입력해주세요</p>
-        )}
+        <p className="text-red-500 text-xs relative">
+          {formState.errors["blogName"]?.type === "required" && (
+            <span className="absolute">한 글자 이상 입력해주세요</span>
+          )}
+        </p>
       </div>
       <OuterClick
         className="flex flex-col w-full relative"
@@ -119,14 +121,14 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
             </ul>
           )}
       </OuterClick>
-      {formState.errors["keyword"]?.type === "required" && (
-        <p className="text-red-500 text-xs text-left w-full relative bottom-3">
-          한 글자 이상 입력해주세요
-        </p>
-      )}
+      <p className="text-red-500 text-xs text-left w-full relative bottom-3">
+        {formState.errors["keyword"]?.type === "required" && (
+          <span className="absolute">한 글자 이상 입력해주세요</span>
+        )}
+      </p>
       {afterFirstSearch && (
         <>
-          <p className="mt-4 mb-0 text-sm text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>
+          <p className="mb-0 text-sm text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>
           <p className="text-sm text-start w-full">{`블로그탭 검색결과 : ${blogRankText}`}</p>
           {searchedPostInfo?.title && (
             <div className="flex flex-col justify-start w-full gap-2">
