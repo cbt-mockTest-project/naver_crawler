@@ -8,7 +8,7 @@ export type NaverViewTapCrawlerTestQueryVariables = Types.Exact<{
 }>;
 
 
-export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCount?: { __typename?: 'SearchCount', all: number, blog: number } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string, thumb: string } | null } };
+export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCounts?: { __typename?: 'SearchCounts', naver: { __typename?: 'SearchCount', all: number, blog: number }, daum: { __typename?: 'SearchCount', all: number, blog: number } } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string, thumb: string } | null } };
 
 
 export const NaverViewTapCrawlerTestDocument = gql`
@@ -17,9 +17,15 @@ export const NaverViewTapCrawlerTestDocument = gql`
     error
     message
     ok
-    searchCount {
-      all
-      blog
+    searchCounts {
+      naver {
+        all
+        blog
+      }
+      daum {
+        all
+        blog
+      }
     }
     postInfo {
       title

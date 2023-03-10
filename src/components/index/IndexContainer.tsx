@@ -18,6 +18,17 @@ export interface NaverViewCrawlerForm {
   keyword: string;
   blogName: string;
 }
+
+export interface RankText {
+  naver: {
+    blog: string;
+    all: string;
+  };
+  daum: {
+    blog: string;
+    all: string;
+  };
+}
 export interface IndexViewProps {
   control: Control<NaverViewCrawlerForm, any>;
   handleSubmit: UseFormHandleSubmit<NaverViewCrawlerForm>;
@@ -26,8 +37,7 @@ export interface IndexViewProps {
     data: NaverViewCrawlerForm
   ) => () => Promise<Promise<void> | undefined>;
   searchLoading: boolean;
-  blogRankText: string;
-  allRankText: string;
+  rankText: RankText;
   afterFirstSearch: boolean;
   searchedPostInfo: NaverViewTapCrawlerTestQuery["naverViewTapCrawlerTest"]["postInfo"];
   searchHistoryValues: string[];
@@ -117,34 +127,50 @@ const IndexContainer = () => {
       setAfterFirstSearch(true);
     }
   };
-  const searchedCount = {
-    all: searchResult
-      ? searchResult?.naverViewTapCrawlerTest.searchCount?.all
-      : 0,
-    blog: searchResult
-      ? searchResult?.naverViewTapCrawlerTest.searchCount?.blog
-      : 0,
+  // const searchedCount = {
+  //   all: searchResult
+  //     ? searchResult?.naverViewTapCrawlerTest.searchCount?.all
+  //     : 0,
+  //   blog: searchResult
+  //     ? searchResult?.naverViewTapCrawlerTest.searchCount?.blog
+  //     : 0,
+  // };
+  const searchedCounts = {
+    naver: {
+      all: searchResult?.naverViewTapCrawlerTest.searchCounts?.naver.all,
+      blog: searchResult?.naverViewTapCrawlerTest.searchCounts?.naver.blog,
+    },
+    daum: {
+      all: searchResult?.naverViewTapCrawlerTest.searchCounts?.daum.all,
+      blog: searchResult?.naverViewTapCrawlerTest.searchCounts?.daum.blog,
+    },
   };
   const searchedPostInfo = searchResult
     ? searchResult.naverViewTapCrawlerTest.postInfo
     : null;
   const trySearch = (data: NaverViewCrawlerForm) =>
     convertWithErrorHandlingFunc({ callback: () => requestSearch(data) });
-  const blogRankText = searchLoading
-    ? "검색중입니다..."
-    : searchedCount.blog
-    ? searchedCount.blog + "순위"
-    : "존재하지 않습니다.";
-  const allRankText = searchLoading
-    ? "검색중입니다..."
-    : searchedCount.all
-    ? searchedCount.all + "순위"
-    : "존재하지 않습니다.";
+  const makeRankText = (rank: number) => {
+    return searchLoading
+      ? "검색중입니다..."
+      : rank
+      ? rank + "순위"
+      : "존재하지 않습니다.";
+  };
+  const rankText: RankText = {
+    naver: {
+      blog: makeRankText(searchedCounts.naver.blog || 0),
+      all: makeRankText(searchedCounts.naver.all || 0),
+    },
+    daum: {
+      blog: makeRankText(searchedCounts.daum.blog || 0),
+      all: makeRankText(searchedCounts.daum.all || 0),
+    },
+  };
   const indexProps: IndexViewProps = {
     trySearch,
+    rankText,
     searchLoading,
-    blogRankText,
-    allRankText,
     afterFirstSearch,
     searchedPostInfo,
     handleSubmit,

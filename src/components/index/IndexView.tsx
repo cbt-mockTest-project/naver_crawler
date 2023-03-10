@@ -12,8 +12,7 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
     handleSubmit,
     trySearch,
     searchLoading,
-    blogRankText,
-    allRankText,
+    rankText,
     afterFirstSearch,
     formState,
     searchedPostInfo,
@@ -128,8 +127,18 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
       </p>
       {afterFirstSearch && (
         <>
-          <p className="mb-0 text-sm text-start w-full">{`전체탭 검색결과 : ${allRankText}`}</p>
-          <p className="text-sm text-start w-full">{`블로그탭 검색결과 : ${blogRankText}`}</p>
+          <div className="flex items-center gap-4 w-full">
+            <div>
+              <p className="text-sm mb-0 w-full font-bold">네이버</p>
+              <p className="mb-0 text-sm text-start w-full">{`전체 : ${rankText.naver.all}`}</p>
+              <p className="text-sm text-start w-full">{`블로그 : ${rankText.naver.blog}`}</p>
+            </div>
+            <div>
+              <p className="text-sm mb-0 w-full font-bold">다음(카카오)</p>
+              <p className="mb-0 text-sm text-start w-full">{`전체 : ${rankText.daum.all}`}</p>
+              <p className="text-sm text-start w-full">{`블로그 : ${rankText.daum.blog}`}</p>
+            </div>
+          </div>
           {searchedPostInfo?.title && (
             <div className="flex flex-col justify-start w-full gap-2">
               {searchedPostInfo.thumb && (
@@ -149,7 +158,7 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
               >
                 {searchedPostInfo?.title}
               </a>
-              <p className=" line-clamp-2">{searchedPostInfo?.content}</p>
+              <p className="line-clamp-2">{searchedPostInfo?.content}</p>
             </div>
           )}
         </>

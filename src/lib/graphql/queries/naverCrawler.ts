@@ -6,9 +6,15 @@ export const NAVER_VIEW_CRAWLER = gql`
       error
       message
       ok
-      searchCount {
-        all
-        blog
+      searchCounts {
+        naver {
+          all
+          blog
+        }
+        daum {
+          all
+          blog
+        }
       }
       postInfo {
         title
