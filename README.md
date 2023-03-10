@@ -10,8 +10,10 @@
 
 ### DESCRIPTION
 
-블로그 이름과 검색어를 입력하면 , 전체탭과 블로그탭에서의 노출 순위를 보여줍니다.<br/><br/>
-<img width="220" alt="스크린샷 2023-01-19 오후 2 47 09" src="https://user-images.githubusercontent.com/86244477/213365338-88494ff3-d271-4bbf-8176-70f3efca9b84.png">
+블로그 이름과 검색어를 입력하면, 네이버와 다음에서의 블로그 노출 순위를 알려줍니다.<br/><br/>
+
+![스크린샷 2023-03-10 오후 3 57 08](https://user-images.githubusercontent.com/86244477/224245391-00dee9f0-0e83-47d7-8487-3c222f3d9427.png)
+
 
 ### LINK
 
