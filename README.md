@@ -6,7 +6,7 @@
 
 - Client : Nextjs, Tailwind, PWA, Graphql, Apollo
 - Server : Nestjs
-- Deploy : Vercel, Aws-lightsail
+- Deploy : Vercel, Aws
 
 ### DESCRIPTION
 
