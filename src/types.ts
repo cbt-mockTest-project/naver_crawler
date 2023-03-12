@@ -1386,6 +1386,7 @@ export type SearchCount = {
   __typename?: 'SearchCount';
   all: Scalars['Float'];
   blog: Scalars['Float'];
+  url: Scalars['String'];
 };
 
 export type SearchCounts = {

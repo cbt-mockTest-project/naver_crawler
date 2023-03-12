@@ -23,10 +23,12 @@ export interface RankText {
   naver: {
     blog: string;
     all: string;
+    url: string;
   };
   daum: {
     blog: string;
     all: string;
+    url: string;
   };
 }
 export interface IndexViewProps {
@@ -139,10 +141,12 @@ const IndexContainer = () => {
     naver: {
       all: searchResult?.naverViewTapCrawlerTest.searchCounts?.naver.all,
       blog: searchResult?.naverViewTapCrawlerTest.searchCounts?.naver.blog,
+      url: searchResult?.naverViewTapCrawlerTest.searchCounts?.naver.url,
     },
     daum: {
       all: searchResult?.naverViewTapCrawlerTest.searchCounts?.daum.all,
       blog: searchResult?.naverViewTapCrawlerTest.searchCounts?.daum.blog,
+      url: searchResult?.naverViewTapCrawlerTest.searchCounts?.daum.url,
     },
   };
   const searchedPostInfo = searchResult
@@ -161,10 +165,12 @@ const IndexContainer = () => {
     naver: {
       blog: makeRankText(searchedCounts.naver.blog || 0),
       all: makeRankText(searchedCounts.naver.all || 0),
+      url: searchedCounts.naver.url || "",
     },
     daum: {
       blog: makeRankText(searchedCounts.daum.blog || 0),
       all: makeRankText(searchedCounts.daum.all || 0),
+      url: searchedCounts.daum.url || "",
     },
   };
   const indexProps: IndexViewProps = {

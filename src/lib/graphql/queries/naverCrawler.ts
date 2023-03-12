@@ -10,10 +10,12 @@ export const NAVER_VIEW_CRAWLER = gql`
         naver {
           all
           blog
+          url
         }
         daum {
           all
           blog
+          url
         }
       }
       postInfo {

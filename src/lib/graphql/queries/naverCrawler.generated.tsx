@@ -8,7 +8,7 @@ export type NaverViewTapCrawlerTestQueryVariables = Types.Exact<{
 }>;
 
 
-export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCounts?: { __typename?: 'SearchCounts', naver: { __typename?: 'SearchCount', all: number, blog: number }, daum: { __typename?: 'SearchCount', all: number, blog: number } } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string, thumb: string } | null } };
+export type NaverViewTapCrawlerTestQuery = { __typename?: 'Query', naverViewTapCrawlerTest: { __typename?: 'NaverViewTapCrawlerOutput', error?: string | null, message?: string | null, ok: boolean, searchCounts?: { __typename?: 'SearchCounts', naver: { __typename?: 'SearchCount', all: number, blog: number, url: string }, daum: { __typename?: 'SearchCount', all: number, blog: number, url: string } } | null, postInfo?: { __typename?: 'PostInfo', title: string, content: string, link: string, thumb: string } | null } };
 
 
 export const NaverViewTapCrawlerTestDocument = gql`
@@ -21,10 +21,12 @@ export const NaverViewTapCrawlerTestDocument = gql`
       naver {
         all
         blog
+        url
       }
       daum {
         all
         blog
+        url
       }
     }
     postInfo {

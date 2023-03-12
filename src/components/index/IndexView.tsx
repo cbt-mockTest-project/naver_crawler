@@ -132,11 +132,17 @@ const IndexView: React.FC<IndexViewProps> = (props) => {
               <p className="text-sm mb-0 w-full font-bold">네이버</p>
               <p className="mb-0 text-sm text-start w-full">{`전체 : ${rankText.naver.all}`}</p>
               <p className="text-sm text-start w-full">{`블로그 : ${rankText.naver.blog}`}</p>
+              <a href={rankText.naver.url} target="_blank" rel="noreferrer">
+                <Button>네이버 검색창으로</Button>
+              </a>
             </div>
             <div>
               <p className="text-sm mb-0 w-full font-bold">다음(카카오)</p>
               <p className="mb-0 text-sm text-start w-full">{`전체 : ${rankText.daum.all}`}</p>
               <p className="text-sm text-start w-full">{`블로그 : ${rankText.daum.blog}`}</p>
+              <a href={rankText.daum.url} target="_blank" rel="noreferrer">
+                <Button>다음 검색창으로</Button>
+              </a>
             </div>
           </div>
           {searchedPostInfo?.title && (
