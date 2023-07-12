@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import { APOLLO_STATE_PROP_NAME, useApollo } from "../src/modules/apollo";
 import * as gtag from "@lib/ga/gtag";
-import "antd/dist/antd.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Script from "next/script";

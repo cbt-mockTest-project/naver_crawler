@@ -13,6 +13,31 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type Attendance = {
+  __typename?: 'Attendance';
+  content: Scalars['String'];
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export type ChangeClientRoleAndCreatePaymentInput = {
+  changeClientRoleInput: ChangeClientRoleInput;
+  createPaymentInput: CreatePaymentInput;
+};
+
+export type ChangeClientRoleAndCreatePaymentOutput = {
+  __typename?: 'ChangeClientRoleAndCreatePaymentOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  paymentId?: Maybe<Scalars['Float']>;
+};
+
+export type ChangeClientRoleInput = {
+  role: UserRole;
+};
+
 export type ChangePasswordAfterVerifyingInput = {
   code: Scalars['String'];
   password: Scalars['String'];
@@ -34,8 +59,30 @@ export type CheckPasswordOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type CheckUserRoleInput = {
+  roleIds: Array<Scalars['Float']>;
+};
+
+export type CheckUserRoleOutput = {
+  __typename?: 'CheckUserRoleOutput';
+  confirmed: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
 export type CoreOutput = {
   __typename?: 'CoreOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type CreateAttendanceInput = {
+  content: Scalars['String'];
+};
+
+export type CreateAttendanceOutput = {
+  __typename?: 'CreateAttendanceOutput';
+  attendance?: Maybe<Attendance>;
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
 };
@@ -50,12 +97,29 @@ export type CreateFeedbackOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type CreateFreeTrialRoleOutput = {
+  __typename?: 'CreateFreeTrialRoleOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
 export type CreateMockExamCategoryInput = {
   name: Scalars['String'];
 };
 
 export type CreateMockExamCategoryOutput = {
   __typename?: 'CreateMockExamCategoryOutput';
+  category?: Maybe<MockExamCategory>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type CreateMockExamHistoryInput = {
+  examId: Scalars['Float'];
+};
+
+export type CreateMockExamHistoryOutput = {
+  __typename?: 'CreateMockExamHistoryOutput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
 };
@@ -68,6 +132,7 @@ export type CreateMockExamInput = {
 export type CreateMockExamOutput = {
   __typename?: 'CreateMockExamOutput';
   error?: Maybe<Scalars['String']>;
+  mockExam?: Maybe<MockExam>;
   ok: Scalars['Boolean'];
 };
 
@@ -86,11 +151,13 @@ export type CreateMockExamQuestionCommentOutput = {
 export type CreateMockExamQuestionFeedbackInput = {
   content: Scalars['String'];
   questionId: Scalars['Float'];
+  type?: InputMaybe<QuestionFeedbackType>;
 };
 
 export type CreateMockExamQuestionFeedbackOutput = {
   __typename?: 'CreateMockExamQuestionFeedbackOutput';
   error?: Maybe<Scalars['String']>;
+  feedback?: Maybe<MockExamQuestionFeedback>;
   ok: Scalars['Boolean'];
 };
 
@@ -148,6 +215,32 @@ export type CreateOrUpdateMockExamQuestionStateOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type CreateOrUpdateTodoInput = {
+  dateString: Scalars['String'];
+  todoList?: InputMaybe<Array<TodoListInputType>>;
+};
+
+export type CreateOrUpdateTodoOutput = {
+  __typename?: 'CreateOrUpdateTodoOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
+};
+
+export type CreatePaymentInput = {
+  orderId: Scalars['String'];
+  price: Scalars['Float'];
+  productName: Scalars['String'];
+  receiptId: Scalars['String'];
+};
+
+export type CreatePaymentOutput = {
+  __typename?: 'CreatePaymentOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  payment?: Maybe<Payment>;
+};
+
 export type CreatePostCommentInput = {
   content: Scalars['String'];
   postId: Scalars['Float'];
@@ -161,6 +254,7 @@ export type CreatePostCommentOutput = {
 };
 
 export type CreatePostInput = {
+  category?: InputMaybe<PostCategory>;
   content: Scalars['String'];
   title: Scalars['String'];
 };
@@ -171,12 +265,69 @@ export type CreatePostOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type CreateQuestionCardCategoryInput = {
+  name: Scalars['String'];
+};
+
+export type CreateQuestionCardCategoryOutput = {
+  __typename?: 'CreateQuestionCardCategoryOutput';
+  category?: Maybe<QuestionCardCategory>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type CreateQuestionCardInput = {
+  categoryId: Scalars['Float'];
+  question: Scalars['String'];
+  solution: Scalars['String'];
+};
+
+export type CreateQuestionCardOutput = {
+  __typename?: 'CreateQuestionCardOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  questionCard?: Maybe<QuestionCard>;
+};
+
+export type CreateUserRoleInput = {
+  roleId: Scalars['Float'];
+  userId: Scalars['Float'];
+};
+
+export type CreateUserRoleOutput = {
+  __typename?: 'CreateUserRoleOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  roleId?: Maybe<Scalars['Float']>;
+};
+
+export type CreateVideoInput = {
+  size: Scalars['Float'];
+  url: Scalars['String'];
+};
+
+export type CreateVideoOutput = {
+  __typename?: 'CreateVideoOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
 export type CreateVisitHistoryOutput = {
   __typename?: 'CreateVisitHistoryOutput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   todayViewCount?: Maybe<Scalars['Float']>;
   totalViewCount?: Maybe<Scalars['Float']>;
+};
+
+export type DeleteAttendanceInput = {
+  id: Scalars['Float'];
+};
+
+export type DeleteAttendanceOutput = {
+  __typename?: 'DeleteAttendanceOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
 };
 
 export type DeleteMockExamCategoryInput = {
@@ -239,6 +390,16 @@ export type DeleteNoticeOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type DeletePaymentInput = {
+  paymentId: Scalars['Float'];
+};
+
+export type DeletePaymentOutput = {
+  __typename?: 'DeletePaymentOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
 export type DeletePostCommentInput = {
   id: Scalars['Float'];
 };
@@ -259,14 +420,45 @@ export type DeletePostOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type DeleteQuestionCardCategoryInput = {
+  id: Scalars['Float'];
+};
+
+export type DeleteQuestionCardCategoryOutput = {
+  __typename?: 'DeleteQuestionCardCategoryOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type DeleteQuestionCardsInput = {
+  ids: Array<Scalars['Float']>;
+};
+
+export type DeleteQuestionCardsOutput = {
+  __typename?: 'DeleteQuestionCardsOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type DeleteUserRoleInput = {
+  id: Scalars['Float'];
+};
+
+export type DeleteUserRoleOutput = {
+  __typename?: 'DeleteUserRoleOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
 export type EditMockExamCategoryInput = {
   id: Scalars['Float'];
   name: Scalars['String'];
 };
 
 export type EditMockExamInput = {
-  approved?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Float'];
+  status?: InputMaybe<ExamStatus>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type EditMockExamOutput = {
@@ -415,8 +607,34 @@ export type EmailVerificationOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type ExamCoAuthor = {
+  __typename?: 'ExamCoAuthor';
+  created_at: Scalars['DateTime'];
+  exam: MockExam;
+  examCategory: MockExamCategory;
+  id: Scalars['Float'];
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export enum ExamStatus {
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED',
+  Request = 'REQUEST',
+  Unset = 'UNSET'
+}
+
 export type ExamTitleAndId = {
   __typename?: 'ExamTitleAndId';
+  id: Scalars['Float'];
+  role: UserRole;
+  slug?: Maybe<Scalars['String']>;
+  status: ExamStatus;
+  title: Scalars['String'];
+};
+
+export type ExamTitleAndIdByQuestionComment = {
+  __typename?: 'ExamTitleAndIdByQuestionComment';
   id: Scalars['Float'];
   title: Scalars['String'];
 };
@@ -439,6 +657,101 @@ export type FindMyExamHistoryOutput = {
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   titleAndId?: Maybe<Array<TitleAndId>>;
+};
+
+export type GetExamTitleWithFeedbackOutput = {
+  __typename?: 'GetExamTitleWithFeedbackOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  titles: Array<GetExamTitleWithFeedbackTitle>;
+};
+
+export type GetExamTitleWithFeedbackTitle = {
+  __typename?: 'GetExamTitleWithFeedbackTitle';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+};
+
+export type GetFeedbacksByRecommendationCountInput = {
+  count: Scalars['Float'];
+};
+
+export type GetFeedbacksByRecommendationCountOutput = {
+  __typename?: 'GetFeedbacksByRecommendationCountOutput';
+  error?: Maybe<Scalars['String']>;
+  feedbacks?: Maybe<Array<MockExamQuestionFeedback>>;
+  ok: Scalars['Boolean'];
+};
+
+export type GetFeedbacksWithFilterInput = {
+  badCount: Scalars['Float'];
+  examId: Scalars['Float'];
+  goodCount: Scalars['Float'];
+  types: Array<QuestionFeedbackType>;
+};
+
+export type GetFeedbacksWithFilterOutput = {
+  __typename?: 'GetFeedbacksWithFilterOutput';
+  error?: Maybe<Scalars['String']>;
+  feedbacks: Array<MockExamQuestionFeedback>;
+  ok: Scalars['Boolean'];
+};
+
+export type GetMyBlogPostRankInput = {
+  blogName: Scalars['String'];
+  keyword: Scalars['String'];
+};
+
+export type GetMyBlogPostRankOutput = {
+  __typename?: 'GetMyBlogPostRankOutput';
+  error?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  postInfo?: Maybe<PostInfo>;
+  searchCounts?: Maybe<SearchCounts>;
+};
+
+export type GetMyPaymentsOutput = {
+  __typename?: 'GetMyPaymentsOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  payments?: Maybe<Array<Payment>>;
+};
+
+export type GetPartnersOutput = {
+  __typename?: 'GetPartnersOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  partners?: Maybe<Array<Partner>>;
+};
+
+export type GetRoleCountInput = {
+  roleId: Scalars['Float'];
+};
+
+export type GetRoleCountOutput = {
+  __typename?: 'GetRoleCountOutput';
+  count?: Maybe<Scalars['Float']>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type GetTodayAttendanceOutput = {
+  __typename?: 'GetTodayAttendanceOutput';
+  attendances?: Maybe<Array<Attendance>>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type GetTodoInput = {
+  dateString: Scalars['String'];
+};
+
+export type GetTodoOutput = {
+  __typename?: 'GetTodoOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  todo?: Maybe<Todo>;
 };
 
 export type KakaoLoginInput = {
@@ -483,28 +796,49 @@ export type MockExam = {
   __typename?: 'MockExam';
   approved: Scalars['Boolean'];
   created_at: Scalars['DateTime'];
+  examCoAuthor?: Maybe<Array<ExamCoAuthor>>;
+  history: Array<MockExamHistory>;
   id: Scalars['Float'];
   mockExamCategory: MockExamCategory;
   mockExamQuestion: Array<MockExamQuestion>;
   mockExamQuestionState: Array<MockExamQuestion>;
+  order: Scalars['Float'];
+  slug?: Maybe<Scalars['String']>;
+  status: ExamStatus;
   title: Scalars['String'];
   updated_at: Scalars['DateTime'];
+  user: User;
 };
 
 export type MockExamCategory = {
   __typename?: 'MockExamCategory';
+  approved: Scalars['Boolean'];
   created_at: Scalars['DateTime'];
+  examCoAuthor?: Maybe<Array<ExamCoAuthor>>;
   id: Scalars['Float'];
   mockExam: Array<MockExam>;
   name: Scalars['String'];
+  order: Scalars['Float'];
+  partner?: Maybe<Partner>;
+  roles: Array<Role>;
   type: MockExamCategoryTypes;
   updated_at: Scalars['DateTime'];
+  user: User;
 };
 
 export enum MockExamCategoryTypes {
   Practical = 'practical',
   Written = 'written'
 }
+
+export type MockExamHistory = {
+  __typename?: 'MockExamHistory';
+  created_at: Scalars['DateTime'];
+  exam: MockExam;
+  id: Scalars['Float'];
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
 
 export type MockExamImageType = {
   __typename?: 'MockExamImageType';
@@ -525,7 +859,7 @@ export type MockExamQuestion = {
   approved: Scalars['Boolean'];
   created_at: Scalars['DateTime'];
   id: Scalars['Float'];
-  mockExam: MockExam;
+  mockExam?: Maybe<MockExam>;
   mockExamQuestionBookmark: Array<MockExamQuestionBookmark>;
   mockExamQuestionComment: Array<MockExamQuestionComment>;
   mockExamQuestionFeedback: Array<MockExamQuestionFeedback>;
@@ -533,10 +867,12 @@ export type MockExamQuestion = {
   number: Scalars['Float'];
   question: Scalars['String'];
   question_img?: Maybe<Array<MockExamImageType>>;
+  question_video?: Maybe<Array<MockExamVideoType>>;
   solution?: Maybe<Scalars['String']>;
   solution_img?: Maybe<Array<MockExamImageType>>;
   state: Array<MockExamQuestionState>;
   updated_at: Scalars['DateTime'];
+  user: User;
 };
 
 export type MockExamQuestionBookmark = {
@@ -576,6 +912,20 @@ export type MockExamQuestionFeedback = {
   created_at: Scalars['DateTime'];
   id: Scalars['Float'];
   mockExamQuestion: MockExamQuestion;
+  myRecommedationStatus: MyRecommedationStatus;
+  recommendation: Array<MockExamQuestionFeedbackRecommendation>;
+  recommendationCount: RecommendationCount;
+  type: QuestionFeedbackType;
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export type MockExamQuestionFeedbackRecommendation = {
+  __typename?: 'MockExamQuestionFeedbackRecommendation';
+  created_at: Scalars['DateTime'];
+  feedback: MockExamQuestionFeedback;
+  id: Scalars['Float'];
+  type: QuestionFeedbackRecommendationType;
   updated_at: Scalars['DateTime'];
   user: User;
 };
@@ -614,33 +964,56 @@ export type MockExamQuestionState = {
   user: User;
 };
 
+export type MockExamVideoType = {
+  __typename?: 'MockExamVideoType';
+  size: Scalars['Float'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  changeClientRole: CoreOutput;
+  changeClientRoleAndCreatePayment: ChangeClientRoleAndCreatePaymentOutput;
   changePasswordAfterVerifying: ChangePasswordAfterVerifyingOutput;
   checkPassword: CheckPasswordOutput;
+  checkUserRole: CheckUserRoleOutput;
+  createAttendance: CreateAttendanceOutput;
   createFeedback: CreateFeedbackOutput;
+  createFreeTrialRole: CreateFreeTrialRoleOutput;
   createMockExam: CreateMockExamOutput;
   createMockExamCategory: CreateMockExamCategoryOutput;
+  createMockExamHistory: CreateMockExamHistoryOutput;
   createMockExamQuestion: CreateMockExamQuestionOutput;
   createMockExamQuestionComment: CreateMockExamQuestionCommentOutput;
   createMockExamQuestionFeedback: CreateMockExamQuestionFeedbackOutput;
   createMutipleChoice: CreateMockExamQuestionMultipleChoiceOutput;
   createNotice: CreateNoticeOutput;
   createOrUpdateMockExamQuestionState: CreateOrUpdateMockExamQuestionStateOutput;
+  createOrUpdateTodo: CreateOrUpdateTodoOutput;
+  createPayment: CreatePaymentOutput;
   createPost: CreatePostOutput;
   createPostComment: CreatePostCommentOutput;
+  createQuestionCard: CreateQuestionCardOutput;
+  createQuestionCardCategory: CreateQuestionCardCategoryOutput;
+  createUserRole: CreateUserRoleOutput;
+  createVideo: CreateVideoOutput;
   createVisit: CoreOutput;
   createVisitHistory: CreateVisitHistoryOutput;
   deleteAllNoticesOfMe: CoreOutput;
+  deleteAttendance: DeleteAttendanceOutput;
   deleteMockExam: DeleteMockExamOutput;
   deleteMockExamCategory: DeleteMockExamCategoryOutput;
   deleteMockExamQuestion: DeleteMockExamQuestionOutput;
   deleteMockExamQuestionComment: DeleteMockExamQuestionCommentOutput;
   deleteMockExamQuestionFeedback: DeleteMockExamQuestionFeedbackOutput;
   deleteNotice: DeleteNoticeOutput;
+  deletePayment: DeletePaymentOutput;
   deletePost: DeletePostOutput;
   deletePostComment: DeletePostCommentOutput;
+  deleteQuestionCardCategory: DeleteQuestionCardCategoryOutput;
+  deleteQuestionCards: DeleteQuestionCardsOutput;
   deleteUser: CoreOutput;
+  deleteUserRole: DeleteUserRoleOutput;
   editMockExam: EditMockExamOutput;
   editMockExamCategory: DeleteMockExamCategoryOutput;
   editMockExamQuestion: EditMockExamQuestionOutput;
@@ -666,8 +1039,25 @@ export type Mutation = {
   sendFindPasswordMail: SendFindPasswordMailOutput;
   sendMessageToAlramChannelOfTelegram: SendMessageToAlramChannelOfTelegramOutput;
   sendVerificationMail: SendVerificationMailOutput;
+  syncRole: CoreOutput;
+  updateAdBlockPermission: UpdateAdblockPermissionOutput;
   updateApprovedStateOfMockExamQuestion: UpdateApprovedStateOfMockExamQuestionOutput;
+  updateMockExamQuestionFeedbackRecommendation: UpdateMockExamQuestionFeedbackRecommendationOutput;
+  updatePayment: UpdatePaymentOutput;
+  updateQuestionCard: UpdateQuestionCardOutput;
+  updateQuestionCardCategory: UpdateQuestionCardCategoryOutput;
+  updateQuestionStatesToCore: CoreOutput;
   viewPost: ViewPostOutput;
+};
+
+
+export type MutationChangeClientRoleArgs = {
+  input: ChangeClientRoleInput;
+};
+
+
+export type MutationChangeClientRoleAndCreatePaymentArgs = {
+  input: ChangeClientRoleAndCreatePaymentInput;
 };
 
 
@@ -678,6 +1068,16 @@ export type MutationChangePasswordAfterVerifyingArgs = {
 
 export type MutationCheckPasswordArgs = {
   input: CheckPasswordInput;
+};
+
+
+export type MutationCheckUserRoleArgs = {
+  input: CheckUserRoleInput;
+};
+
+
+export type MutationCreateAttendanceArgs = {
+  input: CreateAttendanceInput;
 };
 
 
@@ -693,6 +1093,11 @@ export type MutationCreateMockExamArgs = {
 
 export type MutationCreateMockExamCategoryArgs = {
   input: CreateMockExamCategoryInput;
+};
+
+
+export type MutationCreateMockExamHistoryArgs = {
+  input: CreateMockExamHistoryInput;
 };
 
 
@@ -726,6 +1131,16 @@ export type MutationCreateOrUpdateMockExamQuestionStateArgs = {
 };
 
 
+export type MutationCreateOrUpdateTodoArgs = {
+  input: CreateOrUpdateTodoInput;
+};
+
+
+export type MutationCreatePaymentArgs = {
+  input: CreatePaymentInput;
+};
+
+
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
 };
@@ -733,6 +1148,31 @@ export type MutationCreatePostArgs = {
 
 export type MutationCreatePostCommentArgs = {
   input: CreatePostCommentInput;
+};
+
+
+export type MutationCreateQuestionCardArgs = {
+  input: CreateQuestionCardInput;
+};
+
+
+export type MutationCreateQuestionCardCategoryArgs = {
+  input: CreateQuestionCardCategoryInput;
+};
+
+
+export type MutationCreateUserRoleArgs = {
+  input: CreateUserRoleInput;
+};
+
+
+export type MutationCreateVideoArgs = {
+  input: CreateVideoInput;
+};
+
+
+export type MutationDeleteAttendanceArgs = {
+  input: DeleteAttendanceInput;
 };
 
 
@@ -766,6 +1206,11 @@ export type MutationDeleteNoticeArgs = {
 };
 
 
+export type MutationDeletePaymentArgs = {
+  input: DeletePaymentInput;
+};
+
+
 export type MutationDeletePostArgs = {
   input: DeletePostInput;
 };
@@ -773,6 +1218,21 @@ export type MutationDeletePostArgs = {
 
 export type MutationDeletePostCommentArgs = {
   input: DeletePostCommentInput;
+};
+
+
+export type MutationDeleteQuestionCardCategoryArgs = {
+  input: DeleteQuestionCardCategoryInput;
+};
+
+
+export type MutationDeleteQuestionCardsArgs = {
+  input: DeleteQuestionCardsInput;
+};
+
+
+export type MutationDeleteUserRoleArgs = {
+  input: DeleteUserRoleInput;
 };
 
 
@@ -896,13 +1356,44 @@ export type MutationSendVerificationMailArgs = {
 };
 
 
+export type MutationUpdateAdBlockPermissionArgs = {
+  input: UpdateAdblockPermissionInput;
+};
+
+
 export type MutationUpdateApprovedStateOfMockExamQuestionArgs = {
   input: UpdateApprovedStateOfMockExamQuestionInput;
 };
 
 
+export type MutationUpdateMockExamQuestionFeedbackRecommendationArgs = {
+  input: UpdateMockExamQuestionFeedbackRecommendationInput;
+};
+
+
+export type MutationUpdatePaymentArgs = {
+  input: UpdatePaymentInput;
+};
+
+
+export type MutationUpdateQuestionCardArgs = {
+  input: UpdateQuestionCardInput;
+};
+
+
+export type MutationUpdateQuestionCardCategoryArgs = {
+  input: UpdateQuestionCardCategoryInput;
+};
+
+
 export type MutationViewPostArgs = {
   input: ViewPostInput;
+};
+
+export type MyRecommedationStatus = {
+  __typename?: 'MyRecommedationStatus';
+  isBad: Scalars['Boolean'];
+  isGood: Scalars['Boolean'];
 };
 
 export type NaverBlogViewMacroInput = {
@@ -913,20 +1404,6 @@ export type NaverBlogViewMacroOutput = {
   __typename?: 'NaverBlogViewMacroOutput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
-};
-
-export type NaverViewTapCrawlerInput = {
-  blogName: Scalars['String'];
-  keyword: Scalars['String'];
-};
-
-export type NaverViewTapCrawlerOutput = {
-  __typename?: 'NaverViewTapCrawlerOutput';
-  error?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
-  ok: Scalars['Boolean'];
-  postInfo?: Maybe<PostInfo>;
-  searchCounts?: Maybe<SearchCounts>;
 };
 
 export type Notice = {
@@ -941,6 +1418,28 @@ export type Notice = {
   user: User;
 };
 
+export type Partner = {
+  __typename?: 'Partner';
+  created_at: Scalars['DateTime'];
+  examCategory: Array<MockExamCategory>;
+  id: Scalars['Float'];
+  name: Scalars['String'];
+  updated_at: Scalars['DateTime'];
+};
+
+export type Payment = {
+  __typename?: 'Payment';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  orderId: Scalars['String'];
+  price: Scalars['Float'];
+  productName: Scalars['String'];
+  receiptId: Scalars['String'];
+  receiptUrl?: Maybe<Scalars['String']>;
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
 export type Post = {
   __typename?: 'Post';
   category: PostCategory;
@@ -951,9 +1450,11 @@ export type Post = {
   content: Scalars['String'];
   created_at: Scalars['DateTime'];
   id: Scalars['Float'];
+  isHidden: Scalars['Boolean'];
   like: Array<PostLike>;
   likeState: Scalars['Boolean'];
   likesCount: Scalars['Float'];
+  priority: Scalars['Float'];
   title: Scalars['String'];
   updated_at: Scalars['DateTime'];
   user: User;
@@ -961,8 +1462,12 @@ export type Post = {
 };
 
 export enum PostCategory {
+  Checkin = 'CHECKIN',
   Free = 'FREE',
-  Pass = 'PASS'
+  Notice = 'NOTICE',
+  Recovery = 'RECOVERY',
+  Review = 'REVIEW',
+  Suggenstion = 'SUGGENSTION'
 }
 
 export type PostComment = {
@@ -1007,13 +1512,23 @@ export type PostLike = {
 export type Query = {
   __typename?: 'Query';
   findMyExamHistory: FindMyExamHistoryOutput;
+  getExamTitleWithFeedback: GetExamTitleWithFeedbackOutput;
+  getFeedbacksByRecommendationCount: GetFeedbacksByRecommendationCountOutput;
+  getFeedbacksWithFilter: GetFeedbacksWithFilterOutput;
+  getMyBlogPostRank: GetMyBlogPostRankOutput;
+  getMyPayments: GetMyPaymentsOutput;
+  getPartners: GetPartnersOutput;
+  getRoleCount: GetRoleCountOutput;
+  getTodayAttendance: GetTodayAttendanceOutput;
+  getTodo: GetTodoOutput;
   me: MeOutput;
-  naverViewTapCrawlerTest: NaverViewTapCrawlerOutput;
   readAllMockExam: ReadAllMockExamsOutput;
   readAllMockExamCategories: ReadAllMockExamCategoriesOutput;
   readAllMockExamQuestion: ReadAllMockExamQuestionOutput;
   readAllMockExamQuestionFeedback: ReadAllMockExamQuestionFeedbackOutput;
   readAllQuestions: ReadAllQuestionsOutput;
+  readExamTitleAndIdByQuestionComment: ReadExamTitleAndIdByQuestionCommentOutput;
+  readExamTitleAndIdByQuestionState: ReadExamTitleAndIdByQuestionStateOutput;
   readExamTitleAndIdOfBookmarkedQuestion: ReadExamTitleAndIdOfBookmarkedQuestionOutput;
   readMockExam: ReadMockExamOutput;
   readMockExamQuestion: ReadMockExamQuestionOutput;
@@ -1024,12 +1539,19 @@ export type Query = {
   readMockExamQuestionsByMockExamId: ReadMockExamQuestionsByMockExamIdOutput;
   readMockExamQuestionsByState: ReadMockExamQuestionsByStateOutput;
   readMockExamTitlesByCateory: ReadMockExamTitlesByCateoryOutput;
+  readMyExamHistory: ReadMyExamHistoryOutput;
   readMyExamQuestionState: ReadMyExamQuestionStateOutput;
+  readMyMockExamCategories: ReadMyMockExamCategoriesOutput;
+  readMyQuestionCardCategories: ReadMyQuestionCardCategoriesOutput;
+  readMyQuestionCards: ReadMyQuestionCardsOutput;
+  readMyQuestionComments: ReadMyQuestionCommentsOutput;
   readPost: ReadPostOutput;
   readPosts: ReadPostsOutput;
+  readQuestionCard: ReadQuestionCardOutput;
   readVisitCount: ReadVisitCountOutput;
   readVisitHistory: ReadVisitHistoryOutput;
   searchMockExam: SearchMockExamOutput;
+  searchUser: SearchUserOutput;
   userProfile: UserProfileOutput;
 };
 
@@ -1039,8 +1561,28 @@ export type QueryFindMyExamHistoryArgs = {
 };
 
 
-export type QueryNaverViewTapCrawlerTestArgs = {
-  input: NaverViewTapCrawlerInput;
+export type QueryGetFeedbacksByRecommendationCountArgs = {
+  input: GetFeedbacksByRecommendationCountInput;
+};
+
+
+export type QueryGetFeedbacksWithFilterArgs = {
+  input: GetFeedbacksWithFilterInput;
+};
+
+
+export type QueryGetMyBlogPostRankArgs = {
+  input: GetMyBlogPostRankInput;
+};
+
+
+export type QueryGetRoleCountArgs = {
+  input: GetRoleCountInput;
+};
+
+
+export type QueryGetTodoArgs = {
+  input: GetTodoInput;
 };
 
 
@@ -1104,6 +1646,16 @@ export type QueryReadMyExamQuestionStateArgs = {
 };
 
 
+export type QueryReadMyQuestionCardsArgs = {
+  input: ReadMyQuestionCardsInput;
+};
+
+
+export type QueryReadMyQuestionCommentsArgs = {
+  input: ReadMyQuestionCommentsInput;
+};
+
+
 export type QueryReadPostArgs = {
   input: ReadPostInput;
 };
@@ -1114,13 +1666,61 @@ export type QueryReadPostsArgs = {
 };
 
 
+export type QueryReadQuestionCardArgs = {
+  input: ReadQuestionCardInput;
+};
+
+
 export type QuerySearchMockExamArgs = {
   input: SearchMockExamInput;
 };
 
 
+export type QuerySearchUserArgs = {
+  input: SearchUserInput;
+};
+
+
 export type QueryUserProfileArgs = {
   input: UserProfileInput;
+};
+
+export type QuestionCard = {
+  __typename?: 'QuestionCard';
+  category: QuestionCardCategory;
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  question: Scalars['String'];
+  solution: Scalars['String'];
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export type QuestionCardCategory = {
+  __typename?: 'QuestionCardCategory';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  name: Scalars['String'];
+  questionCard: QuestionCard;
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export enum QuestionFeedbackRecommendationType {
+  Bad = 'BAD',
+  Good = 'GOOD'
+}
+
+export enum QuestionFeedbackType {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC',
+  Report = 'REPORT'
+}
+
+export type QuestionNumber = {
+  __typename?: 'QuestionNumber';
+  questionId: Scalars['Float'];
+  questionNumber: Scalars['Float'];
 };
 
 export enum QuestionState {
@@ -1131,7 +1731,7 @@ export enum QuestionState {
 }
 
 export type ReadAllMockExamCategoriesInput = {
-  all?: InputMaybe<Scalars['Boolean']>;
+  partnerId?: InputMaybe<Scalars['Float']>;
   type?: InputMaybe<MockExamCategoryTypes>;
 };
 
@@ -1174,6 +1774,20 @@ export type ReadAllQuestionsOutput = {
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   questions?: Maybe<Array<MockExamQuestion>>;
+};
+
+export type ReadExamTitleAndIdByQuestionCommentOutput = {
+  __typename?: 'ReadExamTitleAndIdByQuestionCommentOutput';
+  error?: Maybe<Scalars['String']>;
+  examTitleAndId?: Maybe<Array<ExamTitleAndIdByQuestionComment>>;
+  ok: Scalars['Boolean'];
+};
+
+export type ReadExamTitleAndIdByQuestionStateOutput = {
+  __typename?: 'ReadExamTitleAndIdByQuestionStateOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  titleAndId?: Maybe<Array<TitleAndId>>;
 };
 
 export type ReadExamTitleAndIdOfBookmarkedQuestionOutput = {
@@ -1240,13 +1854,15 @@ export type ReadMockExamQuestionNumbersInput = {
 export type ReadMockExamQuestionNumbersOutput = {
   __typename?: 'ReadMockExamQuestionNumbersOutput';
   error?: Maybe<Scalars['String']>;
+  examStatus?: Maybe<ExamStatus>;
   ok: Scalars['Boolean'];
-  questionNumbers: Array<Scalars['Float']>;
+  questionNumbers: Array<QuestionNumber>;
 };
 
 export type ReadMockExamQuestionOutput = {
   __typename?: 'ReadMockExamQuestionOutput';
   error?: Maybe<Scalars['String']>;
+  isCoAuthor: Scalars['Boolean'];
   mockExamQusetion: MockExamQuestion;
   ok: Scalars['Boolean'];
   state?: Maybe<QuestionState>;
@@ -1257,10 +1873,13 @@ export type ReadMockExamQuestionsByMockExamIdInput = {
   id?: InputMaybe<Scalars['Float']>;
   ids?: InputMaybe<Array<Scalars['Float']>>;
   isRandom?: InputMaybe<Scalars['Boolean']>;
+  limit?: InputMaybe<Scalars['Float']>;
+  states?: InputMaybe<Array<QuestionState>>;
 };
 
 export type ReadMockExamQuestionsByMockExamIdOutput = {
   __typename?: 'ReadMockExamQuestionsByMockExamIdOutput';
+  author: Scalars['String'];
   count: Scalars['Float'];
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
@@ -1282,6 +1901,7 @@ export type ReadMockExamQuestionsByStateOutput = {
 };
 
 export type ReadMockExamTitlesByCateoryInput = {
+  all?: InputMaybe<Scalars['Boolean']>;
   name: Scalars['String'];
 };
 
@@ -1290,6 +1910,13 @@ export type ReadMockExamTitlesByCateoryOutput = {
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   titles: Array<ExamTitleAndId>;
+};
+
+export type ReadMyExamHistoryOutput = {
+  __typename?: 'ReadMyExamHistoryOutput';
+  error?: Maybe<Scalars['String']>;
+  mockExams?: Maybe<Array<MockExam>>;
+  ok: Scalars['Boolean'];
 };
 
 export type ReadMyExamQuestionStateInput = {
@@ -1301,6 +1928,42 @@ export type ReadMyExamQuestionStateOutput = {
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   state: MockExamQuestionState;
+};
+
+export type ReadMyMockExamCategoriesOutput = {
+  __typename?: 'ReadMyMockExamCategoriesOutput';
+  categories: Array<MockExamCategory>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type ReadMyQuestionCardCategoriesOutput = {
+  __typename?: 'ReadMyQuestionCardCategoriesOutput';
+  categories?: Maybe<Array<QuestionCardCategory>>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type ReadMyQuestionCardsInput = {
+  categoryId?: InputMaybe<Scalars['Float']>;
+};
+
+export type ReadMyQuestionCardsOutput = {
+  __typename?: 'ReadMyQuestionCardsOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  questionCards?: Maybe<Array<QuestionCard>>;
+};
+
+export type ReadMyQuestionCommentsInput = {
+  examId: Scalars['Float'];
+};
+
+export type ReadMyQuestionCommentsOutput = {
+  __typename?: 'ReadMyQuestionCommentsOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  questions?: Maybe<Array<MockExamQuestion>>;
 };
 
 export type ReadPostInput = {
@@ -1319,6 +1982,7 @@ export type ReadPostsInput = {
   category?: InputMaybe<PostCategory>;
   limit?: InputMaybe<Scalars['Float']>;
   page: Scalars['Float'];
+  search?: InputMaybe<Scalars['String']>;
 };
 
 export type ReadPostsOutput = {
@@ -1327,6 +1991,17 @@ export type ReadPostsOutput = {
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
   posts?: Maybe<Array<Post>>;
+};
+
+export type ReadQuestionCardInput = {
+  id: Scalars['Float'];
+};
+
+export type ReadQuestionCardOutput = {
+  __typename?: 'ReadQuestionCardOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  questionCard?: Maybe<QuestionCard>;
 };
 
 export type ReadVisitCountOutput = {
@@ -1343,6 +2018,12 @@ export type ReadVisitHistoryOutput = {
   today?: Maybe<Scalars['Float']>;
   total?: Maybe<Scalars['Float']>;
   yesterday?: Maybe<Scalars['Float']>;
+};
+
+export type RecommendationCount = {
+  __typename?: 'RecommendationCount';
+  bad: Scalars['Float'];
+  good: Scalars['Float'];
 };
 
 export type RegisterInput = {
@@ -1382,6 +2063,16 @@ export type RevalidateOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type Role = {
+  __typename?: 'Role';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  mockExamCategories: Array<MockExamCategory>;
+  name: Scalars['String'];
+  updated_at: Scalars['DateTime'];
+  userRoles: Array<UserAndRole>;
+};
+
 export type SearchCount = {
   __typename?: 'SearchCount';
   all: Scalars['Float'];
@@ -1405,6 +2096,17 @@ export type SearchMockExamOutput = {
   mockExams: Array<MockExam>;
   ok: Scalars['Boolean'];
   totalResults: Scalars['Float'];
+};
+
+export type SearchUserInput = {
+  name: Scalars['String'];
+};
+
+export type SearchUserOutput = {
+  __typename?: 'SearchUserOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  users?: Maybe<Array<User>>;
 };
 
 export type SendFindPasswordMailInput = {
@@ -1437,15 +2139,42 @@ export type SendVerificationMailOutput = {
   ok: Scalars['Boolean'];
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  postCommentUpdates: CoreOutput;
-};
-
 export type TitleAndId = {
   __typename?: 'TitleAndId';
   id?: Maybe<Scalars['Float']>;
   title?: Maybe<Scalars['String']>;
+};
+
+export type Todo = {
+  __typename?: 'Todo';
+  created_at: Scalars['DateTime'];
+  dateString: Scalars['String'];
+  id: Scalars['Float'];
+  todoList: Array<TodoList>;
+  updated_at: Scalars['DateTime'];
+  user: User;
+};
+
+export type TodoList = {
+  __typename?: 'TodoList';
+  isDone: Scalars['Boolean'];
+  todo: Scalars['String'];
+};
+
+export type TodoListInputType = {
+  isDone: Scalars['Boolean'];
+  todo: Scalars['String'];
+};
+
+export type UpdateAdblockPermissionInput = {
+  userId: Scalars['Float'];
+};
+
+export type UpdateAdblockPermissionOutput = {
+  __typename?: 'UpdateAdblockPermissionOutput';
+  adblockPermission?: Maybe<Scalars['Boolean']>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
 };
 
 export type UpdateApprovedStateOfMockExamQuestionInput = {
@@ -1460,14 +2189,70 @@ export type UpdateApprovedStateOfMockExamQuestionOutput = {
   questionId: Scalars['Float'];
 };
 
+export type UpdateMockExamQuestionFeedbackRecommendationInput = {
+  feedbackId: Scalars['Float'];
+  type: QuestionFeedbackRecommendationType;
+};
+
+export type UpdateMockExamQuestionFeedbackRecommendationOutput = {
+  __typename?: 'UpdateMockExamQuestionFeedbackRecommendationOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  recommendation?: Maybe<MockExamQuestionFeedbackRecommendation>;
+};
+
+export type UpdatePaymentInput = {
+  paymentId: Scalars['Float'];
+  receiptId: Scalars['String'];
+};
+
+export type UpdatePaymentOutput = {
+  __typename?: 'UpdatePaymentOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type UpdateQuestionCardCategoryInput = {
+  id: Scalars['Float'];
+  name: Scalars['String'];
+};
+
+export type UpdateQuestionCardCategoryOutput = {
+  __typename?: 'UpdateQuestionCardCategoryOutput';
+  category?: Maybe<QuestionCardCategory>;
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
+
+export type UpdateQuestionCardInput = {
+  question?: InputMaybe<Scalars['String']>;
+  questionId: Scalars['Float'];
+  solution?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateQuestionCardOutput = {
+  __typename?: 'UpdateQuestionCardOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  questionCard?: Maybe<QuestionCard>;
+};
+
 export type User = {
   __typename?: 'User';
   LoginType: LoginType;
+  attendances?: Maybe<Array<Attendance>>;
   created_at: Scalars['DateTime'];
   deletedAt: Scalars['DateTime'];
   email: Scalars['String'];
+  examCoAuthor?: Maybe<Array<ExamCoAuthor>>;
   feedback: Array<Feedback>;
+  feedbackRecommendation: Array<MockExamQuestionFeedbackRecommendation>;
   id: Scalars['Float'];
+  isAllowAdblock: Scalars['Boolean'];
+  mockExam: Array<MockExam>;
+  mockExamCategory: Array<MockExamCategory>;
+  mockExamHistory: Array<MockExamHistory>;
+  mockExamQuestion: Array<MockExamQuestion>;
   mockExamQuestionBookmark: Array<MockExamQuestionBookmark>;
   mockExamQuestionComment: Array<MockExamQuestionComment>;
   mockExamQuestionCommentLike: Array<MockExamQuestionCommentLike>;
@@ -1475,12 +2260,27 @@ export type User = {
   nickname: Scalars['String'];
   notice?: Maybe<Array<Notice>>;
   password: Scalars['String'];
+  payments: Array<Payment>;
   post?: Maybe<Array<Post>>;
   postComment: Array<PostComment>;
+  questionCardCategorys: Array<QuestionCardCategory>;
+  questionCards: Array<QuestionCard>;
   questionFeedback: Array<MockExamQuestionFeedback>;
   role: UserRole;
+  todos: Array<Todo>;
   updated_at: Scalars['DateTime'];
+  usedFreeTrial: Scalars['Boolean'];
+  userRoles: Array<UserAndRole>;
   visit: Visit;
+};
+
+export type UserAndRole = {
+  __typename?: 'UserAndRole';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  role: Role;
+  updated_at: Scalars['DateTime'];
+  user: User;
 };
 
 export type UserProfileInput = {
@@ -1496,7 +2296,11 @@ export type UserProfileOutput = {
 
 export enum UserRole {
   Admin = 'ADMIN',
-  Client = 'CLIENT'
+  Client = 'CLIENT',
+  ClientBasic = 'CLIENT_BASIC',
+  ClientSafePremium = 'CLIENT_SAFE_PREMIUM',
+  Partner = 'PARTNER',
+  PaymentTest = 'PAYMENT_TEST'
 }
 
 export type ViewPostInput = {
@@ -1515,4 +2319,66 @@ export type Visit = {
   id: Scalars['Float'];
   updated_at: Scalars['DateTime'];
   user: User;
+};
+
+export type ZepComment = {
+  __typename?: 'ZepComment';
+  content: Scalars['String'];
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  updated_at: Scalars['DateTime'];
+  zepPost: ZepPost;
+  zepUser: ZepUser;
+};
+
+export type ZepMapUserCount = {
+  __typename?: 'ZepMapUserCount';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  mapId: Scalars['String'];
+  updated_at: Scalars['DateTime'];
+  userCount: Scalars['Float'];
+};
+
+export type ZepPost = {
+  __typename?: 'ZepPost';
+  category: ZepPostCategory;
+  content: Scalars['String'];
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  updated_at: Scalars['DateTime'];
+  zepComment: Array<ZepComment>;
+  zepUser: ZepUser;
+};
+
+export enum ZepPostCategory {
+  Algorism = 'ALGORISM',
+  Feedback = 'FEEDBACK',
+  Free = 'FREE',
+  Notice = 'NOTICE',
+  Project = 'PROJECT',
+  Study = 'STUDY'
+}
+
+export type ZepStudyTime = {
+  __typename?: 'ZepStudyTime';
+  created_at: Scalars['DateTime'];
+  grass_count: Scalars['Float'];
+  id: Scalars['Float'];
+  study_time: Scalars['Float'];
+  updated_at: Scalars['DateTime'];
+  zepUser: ZepUser;
+};
+
+export type ZepUser = {
+  __typename?: 'ZepUser';
+  created_at: Scalars['DateTime'];
+  id: Scalars['Float'];
+  nickname: Scalars['String'];
+  studyTimes: Array<ZepStudyTime>;
+  updated_at: Scalars['DateTime'];
+  zepComment: Array<ZepComment>;
+  zepPost: Array<ZepPost>;
+  zep_id: Scalars['String'];
 };
