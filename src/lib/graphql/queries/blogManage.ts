@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const NAVER_VIEW_CRAWLER = gql`
-  query NaverViewTapCrawlerTest($input: NaverViewTapCrawlerInput!) {
-    naverViewTapCrawlerTest(input: $input) {
+export const GET_MY_BLOG_POST = gql`
+  query GetMyBlogPostRank($input: GetMyBlogPostRankInput!) {
+    getMyBlogPostRank(input: $input) {
       error
       message
       ok
