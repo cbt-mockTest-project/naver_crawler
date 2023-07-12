@@ -1,5 +1,4 @@
 import WithHead from "@components/common/head/WithHead";
-import IndexContainer from "../src/components/index/IndexContainer";
 import SearchPostRank from "@components/index/SearchPostRank";
 import Layout from "@components/common/layout/Layout";
 
